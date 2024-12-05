@@ -4,158 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Function Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Global Styles */
         body {
-            font-family: 'Arial', sans-serif;
-            background: #f4f4f9;
             margin: 0;
             padding: 0;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background-color: black;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Full screen background video */
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Main container to align everything */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section {
+            margin: 20px;
             text-align: center;
         }
-        h1 {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            margin: 0;
-            font-size: 36px;
-        }
-        h2 {
-            color: #4CAF50;
-            font-size: 24px;
-            margin: 20px 0;
-        }
 
-        /* Section container */
-        .section {
-            margin: 20px auto;
-            width: 80%;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-        .section:hover {
-            transform: scale(1.05);
-        }
-
-        /* Input styles */
-        input[type="file"],
-        input[type="text"],
-        textarea {
-            padding: 10px;
-            margin: 10px 0;
-            width: 80%;
-            max-width: 400px;
-            font-size: 16px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-        input[type="file"]:focus,
-        input[type="text"]:focus,
-        textarea:focus {
-            border-color: #4CAF50;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
         /* Button styles */
         button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: black;
             color: white;
-            border: none;
-            border-radius: 5px;
+            border: 2px solid white;
+            border-radius: 12px; /* Rounded corners */
+            padding: 15px 30px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
+            width: 200px;
         }
+
         button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-        button:active {
-            background-color: #388e3c;
+            transform: scale(1.1);
+            background-color: red;
+            border-color: red;
         }
 
-        /* Link Styles */
-        #downloadLink {
-            display: none;
+        /* Input field and label styles */
+        input[type="text"], textarea {
             padding: 10px;
-            background-color: #009688;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid white;
+            background-color: black;
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            margin-top: 20px;
-        }
-        #downloadLink:hover {
-            background-color: #00796b;
+            border-radius: 8px;
+            margin: 10px;
         }
 
-        /* Output text */
+        textarea {
+            resize: none;
+        }
+
         #output {
             margin-top: 20px;
-            padding: 10px;
-            background: #f1f1f1;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 400px;
-            word-wrap: break-word;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        .animated {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Password Prompt */
-        #passwordPrompt {
+        /* File input styles */
+        #fileInput {
             display: none;
-            margin-top: 20px;
-            font-size: 18px;
-            background-color: #ffeb3b;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
         }
+
+        #fileInputLabel {
+            background-color: black;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: 2px solid white;
+            cursor: pointer;
+            font-size: 16px;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        #fileInputLabel:hover {
+            background-color: red;
+            border-color: red;
+        }
+
+        #downloadLink {
+            display: block;
+            margin-top: 20px;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 12px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            width: 200px;
+            text-align: center;
+        }
+
+        #downloadLink:hover {
+            background-color: red;
+            border-color: red;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Multi-Function Tool</h1>
+    <video autoplay muted loop>
+        <source src="C:\Users\houss\Desktop\main domain\White Dots Overlays Particles Black Screen.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-    <!-- File format changer -->
-    <div class="section">
-        <h2>1. File Format Changer</h2>
-        <input type="file" id="fileInput">
-        <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
-        <button onclick="changeFileFormat()">Change File Format</button>
-        <a id="downloadLink" class="animated">Download Converted File</a>
-    </div>
+    <div class="container">
+        <h1>Multi-Function Tool</h1>
 
-    <!-- Encryption/Decryption -->
-    <div class="section">
-        <h2>2. Encryption & Decryption</h2>
-        <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea><br>
-        <button onclick="encryptText()">Encrypt</button>
-        <button onclick="decryptText()">Decrypt</button>
-        <div id="output"></div>
-    </div>
+        <!-- File format changer section -->
+        <div class="section">
+            <h2>1. File Format Changer</h2>
+            <div class="input-group">
+                <label id="fileInputLabel" for="fileInput">Choose File</label>
+                <input type="file" id="fileInput">
+                <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
+                <button onclick="changeFileFormat()">Change File Format</button>
+                <a id="downloadLink" style="display: none;">Download Converted File</a>
+            </div>
+        </div>
 
-    <!-- Password-protected button -->
-    <div class="section">
-        <h2>3. Only Me</h2>
-        <button onclick="onlyMe()">Only Me</button>
-        <div id="passwordPrompt" class="animated"></div>
+        <!-- Encryption/Decryption section -->
+        <div class="section">
+            <h2>2. Encryption & Decryption</h2>
+            <div class="input-group">
+                <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea>
+                <button onclick="encryptText()">Encrypt</button>
+                <button onclick="decryptText()">Decrypt</button>
+            </div>
+            <div id="output"></div>
+        </div>
+
+        <!-- Password-protected button -->
+        <div class="section">
+            <h2>3. Only Me</h2>
+            <button onclick="onlyMe()">Only Me</button>
+        </div>
     </div>
 
     <script>
@@ -218,17 +238,11 @@
         // Function 3: Password-Protected Button
         function onlyMe() {
             const password = prompt("Enter the password:");
-            const correctPassword = "0309"; // Change this to your desired password
-            const passwordPrompt = document.getElementById('passwordPrompt');
-            
+            const correctPassword = "test123321"; // Change this to your desired password
             if (password === correctPassword) {
-                passwordPrompt.textContent = "Access granted!";
-                passwordPrompt.style.backgroundColor = "#8bc34a";
-                passwordPrompt.style.display = 'block';
+                alert("Access granted!");
             } else {
-                passwordPrompt.textContent = "Access denied!";
-                passwordPrompt.style.backgroundColor = "#f44336";
-                passwordPrompt.style.display = 'block';
+                alert("Access denied!");
             }
         }
     </script>
