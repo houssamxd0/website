@@ -5,17 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Function Tool</title>
     <style>
+        /* Global Styles */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
         }
-        button {
-            margin: 10px 0;
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 36px;
+        }
+        h2 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        /* Section container */
+        .section {
+            margin: 20px auto;
+            width: 80%;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+
+        /* Input styles */
+        input[type="file"],
+        input[type="text"],
+        textarea {
             padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 400px;
             font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
         }
+        input[type="file"]:focus,
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #4CAF50;
+        }
+
+        /* Button styles */
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        button:active {
+            background-color: #388e3c;
+        }
+
+        /* Link Styles */
+        #downloadLink {
+            display: none;
+            padding: 10px;
+            background-color: #009688;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #downloadLink:hover {
+            background-color: #00796b;
+        }
+
+        /* Output text */
         #output {
             margin-top: 20px;
+            padding: 10px;
+            background: #f1f1f1;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 400px;
+            word-wrap: break-word;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .animated {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Password Prompt */
+        #passwordPrompt {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            background-color: #ffeb3b;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -23,22 +134,29 @@
     <h1>Multi-Function Tool</h1>
 
     <!-- File format changer -->
-    <h2>1. File Format Changer</h2>
-    <input type="file" id="fileInput">
-    <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
-    <button onclick="changeFileFormat()">Change File Format</button>
-    <a id="downloadLink" style="display: none;">Download Converted File</a>
+    <div class="section">
+        <h2>1. File Format Changer</h2>
+        <input type="file" id="fileInput">
+        <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
+        <button onclick="changeFileFormat()">Change File Format</button>
+        <a id="downloadLink" class="animated">Download Converted File</a>
+    </div>
 
     <!-- Encryption/Decryption -->
-    <h2>2. Encryption & Decryption</h2>
-    <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea><br>
-    <button onclick="encryptText()">Encrypt</button>
-    <button onclick="decryptText()">Decrypt</button>
-    <div id="output"></div>
+    <div class="section">
+        <h2>2. Encryption & Decryption</h2>
+        <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea><br>
+        <button onclick="encryptText()">Encrypt</button>
+        <button onclick="decryptText()">Decrypt</button>
+        <div id="output"></div>
+    </div>
 
     <!-- Password-protected button -->
-    <h2>3. Only Me</h2>
-    <button onclick="onlyMe()">Only Me</button>
+    <div class="section">
+        <h2>3. Only Me</h2>
+        <button onclick="onlyMe()">Only Me</button>
+        <div id="passwordPrompt" class="animated"></div>
+    </div>
 
     <script>
         // Function 1: File Format Changer
@@ -101,10 +219,16 @@
         function onlyMe() {
             const password = prompt("Enter the password:");
             const correctPassword = "0309"; // Change this to your desired password
+            const passwordPrompt = document.getElementById('passwordPrompt');
+            
             if (password === correctPassword) {
-                alert("Access granted!");
+                passwordPrompt.textContent = "Access granted!";
+                passwordPrompt.style.backgroundColor = "#8bc34a";
+                passwordPrompt.style.display = 'block';
             } else {
-                alert("Access denied!");
+                passwordPrompt.textContent = "Access denied!";
+                passwordPrompt.style.backgroundColor = "#f44336";
+                passwordPrompt.style.display = 'block';
             }
         }
     </script>
