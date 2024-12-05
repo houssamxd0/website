@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Tools </title>
+    <title>Multi-Function Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            position: relative;
         }
 
         /* Full screen background video */
@@ -43,6 +44,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            z-index: 1; /* Make sure the content appears above the video */
         }
 
         .section {
@@ -137,12 +139,37 @@
             border-color: red;
         }
 
+        /* Media query for mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            iframe {
+                height: 100vh; /* Make iframe full height on mobile */
+            }
+
+            .container {
+                width: 100%;
+                padding: 20px;
+                z-index: 1; /* Ensure content is always on top of the video */
+            }
+
+            h1, h2 {
+                font-size: 24px; /* Adjust text size for smaller screens */
+            }
+
+            button {
+                width: 100%; /* Make buttons span full width on small screens */
+                font-size: 14px;
+            }
+
+            input[type="text"], textarea {
+                max-width: 100%; /* Full width for inputs on small screens */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Embedded YouTube Video -->
-    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/LWTsZi7priE?autoplay=1&mute=1&loop=1&playlist=LWTsZi7priE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <!-- Embedded YouTube Video with hidden UI -->
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/LWTsZi7priE?autoplay=1&mute=1&loop=1&playlist=LWTsZi7priE&controls=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
     <div class="container">
         <h1>Multi-Function Tool</h1>
