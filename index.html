@@ -4,205 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Function Tool</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            background-color: black;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-        }
-
-        /* Full screen background video */
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: white;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Main container to align everything */
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1; /* Make sure the content appears above the video */
-        }
-
-        .section {
+            font-family: Arial, sans-serif;
             margin: 20px;
-            text-align: center;
         }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-        }
-
-        /* Button styles */
         button {
-            background-color: black;
-            color: white;
-            border: 2px solid white;
-            border-radius: 12px; /* Rounded corners */
-            padding: 15px 30px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 200px;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-            background-color: red;
-            border-color: red;
-        }
-
-        /* Input field and label styles */
-        input[type="text"], textarea {
+            margin: 10px 0;
             padding: 10px;
             font-size: 16px;
-            width: 100%;
-            max-width: 400px;
-            border: 2px solid white;
-            background-color: black;
-            color: white;
-            border-radius: 8px;
-            margin: 10px;
         }
-
-        textarea {
-            resize: none;
-        }
-
         #output {
             margin-top: 20px;
-        }
-
-        /* File input styles */
-        #fileInput {
-            display: none;
-        }
-
-        #fileInputLabel {
-            background-color: black;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 12px;
-            border: 2px solid white;
-            cursor: pointer;
-            font-size: 16px;
-            width: 200px;
-            transition: all 0.3s ease;
-        }
-
-        #fileInputLabel:hover {
-            background-color: red;
-            border-color: red;
-        }
-
-        #downloadLink {
-            display: block;
-            margin-top: 20px;
-            color: white;
-            text-decoration: none;
-            border: 2px solid white;
-            border-radius: 12px;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-            width: 200px;
-            text-align: center;
-        }
-
-        #downloadLink:hover {
-            background-color: red;
-            border-color: red;
-        }
-
-        /* Media query for mobile responsiveness */
-        @media screen and (max-width: 768px) {
-            iframe {
-                height: 100vh; /* Make iframe full height on mobile */
-            }
-
-            .container {
-                width: 100%;
-                padding: 20px;
-                z-index: 1; /* Ensure content is always on top of the video */
-            }
-
-            h1, h2 {
-                font-size: 24px; /* Adjust text size for smaller screens */
-            }
-
-            button {
-                width: 100%; /* Make buttons span full width on small screens */
-                font-size: 14px;
-            }
-
-            input[type="text"], textarea {
-                max-width: 100%; /* Full width for inputs on small screens */
-            }
         }
     </style>
 </head>
 <body>
+    <h1>Multi-Function Tool</h1>
 
-    <!-- Embedded YouTube Video with hidden UI -->
-    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/LWTsZi7priE?autoplay=1&mute=1&loop=1&playlist=LWTsZi7priE&controls=0&rel=0&modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <!-- File format changer -->
+    <h2>1. File Format Changer</h2>
+    <input type="file" id="fileInput">
+    <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
+    <button onclick="changeFileFormat()">Change File Format</button>
+    <a id="downloadLink" style="display: none;">Download Converted File</a>
 
-    <div class="container">
-        <h1>Multi-Function Tool</h1>
+    <!-- Encryption/Decryption -->
+    <h2>2. Encryption & Decryption</h2>
+    <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea><br>
+    <button onclick="encryptText()">Encrypt</button>
+    <button onclick="decryptText()">Decrypt</button>
+    <div id="output"></div>
 
-        <!-- File format changer section -->
-        <div class="section">
-            <h2>1. File Format Changer</h2>
-            <div class="input-group">
-                <label id="fileInputLabel" for="fileInput">Choose File</label>
-                <input type="file" id="fileInput">
-                <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
-                <button onclick="changeFileFormat()">Change File Format</button>
-                <a id="downloadLink" style="display: none;">Download Converted File</a>
-            </div>
-        </div>
-
-        <!-- Encryption/Decryption section -->
-        <div class="section">
-            <h2>2. Encryption & Decryption</h2>
-            <div class="input-group">
-                <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea>
-                <button onclick="encryptText()">Encrypt</button>
-                <button onclick="decryptText()">Decrypt</button>
-            </div>
-            <div id="output"></div>
-        </div>
-
-        <!-- Password-protected button -->
-        <div class="section">
-            <h2>3. Only Me</h2>
-            <button onclick="onlyMe()">Only Me</button>
-        </div>
-    </div>
+    <!-- Password-protected button -->
+    <h2>3. Only Me</h2>
+    <button onclick="onlyMe()">Only Me</button>
 
     <script>
         // Function 1: File Format Changer
@@ -264,7 +100,7 @@
         // Function 3: Password-Protected Button
         function onlyMe() {
             const password = prompt("Enter the password:");
-            const correctPassword = "test123321"; // Change this to your desired password
+            const correctPassword = "mypassword"; // Change this to your desired password
             if (password === correctPassword) {
                 alert("Access granted!");
             } else {
