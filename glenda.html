@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reasons Why I Love Glenda</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #111;
+            margin: 0;
+            padding: 0;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            background-color: #C0392B; /* Red */
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 36px;
+        }
+        h2 {
+            color: #E74C3C; /* Lighter red */
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        /* Section container */
+        .section {
+            margin: 20px auto;
+            width: 80%;
+            padding: 20px;
+            background: #222; /* Dark background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+
+        /* Button styles */
+        button {
+            padding: 10px 20px;
+            background-color: #C0392B; /* Red */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #E74C3C; /* Lighter red */
+            transform: scale(1.05);
+        }
+        button:active {
+            background-color: #D32F2F; /* Darker red */
+        }
+
+        /* Output text */
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #333; /* Dark background for output */
+            border-radius: 5px;
+            width: 80%;
+            max-width: 400px;
+            word-wrap: break-word;
+            font-size: 18px;
+            color: #E74C3C; /* Lighter red for text */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .animated {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reasons Why I Love Glenda</h1>
+
+    <div class="section">
+        <h2>Click the button to see a reason!</h2>
+        <button onclick="showRandomReason()">Give me a reason!</button>
+        <div id="output" class="animated"></div>
+    </div>
+
+    <script>
+        const reasons = [
+            "SHE ALWAYS MAKES ME SMILE :3 ",
+            "SAME SENSE OF HUMOR AS ME ",
+            "SHES A CUTIE PATOOTIE",
+            "SHES KINDHEART AND SWEET ALL THE TIME",
+            "SHES THE PRETTIEST",
+            "REPLIES INSTANTLY",
+            "SHES MY POOKIE ",
+            "SHES SO CUTE WHEN SHE LAUGH",
+            "I LOVE EVREYTHING ABOUT YOU",
+            "she  makes every moment brighter",
+            "SHES DUMB ASF AS ME AND I LOVE IT",
+            "SHE HAS A BORING ASS LIFE WICH IS CUTE :3 "
+        ];
+
+        function showRandomReason() {
+            const randomIndex = Math.floor(Math.random() * reasons.length);
+            const output = document.getElementById('output');
+            output.textContent = reasons[randomIndex];
+        }
+    </script>
+</body>
+</html>
