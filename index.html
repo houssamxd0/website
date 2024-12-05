@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Function Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multi-Function Tool</h1>
+
+    <!-- File format changer -->
+    <h2>1. File Format Changer</h2>
+    <input type="file" id="fileInput">
+    <input type="text" id="formatInput" placeholder="Enter new format (e.g., .txt)">
+    <button onclick="changeFileFormat()">Change File Format</button>
+    <a id="downloadLink" style="display: none;">Download Converted File</a>
+
+    <!-- Encryption/Decryption -->
+    <h2>2. Encryption & Decryption</h2>
+    <textarea id="textInput" placeholder="Enter text here" rows="4" cols="50"></textarea><br>
+    <button onclick="encryptText()">Encrypt</button>
+    <button onclick="decryptText()">Decrypt</button>
+    <div id="output"></div>
+
+    <!-- Password-protected button -->
+    <h2>3. Only Me</h2>
+    <button onclick="onlyMe()">Only Me</button>
+
+    <script>
+        // Function 1: File Format Changer
+        function changeFileFormat() {
+            const fileInput = document.getElementById('fileInput');
+            const formatInput = document.getElementById('formatInput').value;
+            const downloadLink = document.getElementById('downloadLink');
+
+            if (fileInput.files.length === 0) {
+                alert("Please upload a file first.");
+                return;
+            }
+
+            if (!formatInput) {
+                alert("Please enter the desired format.");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const newFileName = file.name.split('.')[0] + formatInput;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const blob = new Blob([e.target.result], { type: file.type });
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = newFileName;
+                downloadLink.textContent = "Download " + newFileName;
+                downloadLink.style.display = 'block';
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Function 2: Encryption & Decryption
+        const key = 3; // Simple Caesar Cipher key
+        function encryptText() {
+            const text = document.getElementById('textInput').value;
+            if (!text) {
+                alert("Please enter text to encrypt.");
+                return;
+            }
+            const encrypted = text.split('').map(char => 
+                String.fromCharCode(char.charCodeAt(0) + key)
+            ).join('');
+            document.getElementById('output').textContent = "Encrypted: " + encrypted;
+        }
+
+        function decryptText() {
+            const text = document.getElementById('textInput').value;
+            if (!text) {
+                alert("Please enter text to decrypt.");
+                return;
+            }
+            const decrypted = text.split('').map(char => 
+                String.fromCharCode(char.charCodeAt(0) - key)
+            ).join('');
+            document.getElementById('output').textContent = "Decrypted: " + decrypted;
+        }
+
+        // Function 3: Password-Protected Button
+        function onlyMe() {
+            const password = prompt("Enter the password:");
+            const correctPassword = "0309"; // Change this to your desired password
+            if (password === correctPassword) {
+                alert("Access granted!");
+            } else {
+                alert("Access denied!");
+            }
+        }
+    </script>
+</body>
+</html>
